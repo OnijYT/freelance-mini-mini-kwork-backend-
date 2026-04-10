@@ -59,13 +59,37 @@ export const login = async (req: Request, res: Response) => {
     try {
         const {email, password,} = req.body
 
-        const emailka = await User.findOne({where: {email}})
-        if(!emailka) {
+        const user = await User.findOne({where: {email}})
+        if(!user) {
             return res
                 .status(404)
 				.json({ message: "Пользователь с таким email не найден" });
         }
 
+        const correctpass = await bcrypt.compare(password, user.password)
+        if(!correctpass) {
+            return res
+                .status(400)
+                .json({message: 'пароль не совпадает'})
+        }
+
+        const token = jwt.sign(
+            {id: user.id, role: user.role},
+            process.env.JWT_SECRET || 'secret_key',
+            {expiresIn: '24h'}
+        )
+
+        return res
+            .status(201)
+            .json({ message: 'Успешно авторизован',
+                token,
+                user: {
+                    id: user.id,
+                    email: user.email,
+                    fullname: user.fullname,
+                    role: user.role
+                }
+            })
     } catch (err) {
         console.error(err)
         res
