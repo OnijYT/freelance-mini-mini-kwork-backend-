@@ -9,10 +9,15 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
+// app
+
+
+
+// start
 const start = async (): Promise<void> => {
     try {
         await sequelize.authenticate()
-        await sequelize.sync()
+        await sequelize.sync({ alter: true })
         app.listen(5000, () => console.log('✅ server ok'))
     } catch (err) {
         console.error(err)
