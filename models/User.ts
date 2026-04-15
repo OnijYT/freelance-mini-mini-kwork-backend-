@@ -1,4 +1,3 @@
-import { table } from "node:console";
 import sequelize from "../db.js";
 import { DataTypes, Model, Optional } from "sequelize";
 
