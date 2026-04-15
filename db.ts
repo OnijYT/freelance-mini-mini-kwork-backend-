@@ -13,6 +13,6 @@ const sequelize = new Sequelize(
         logging: false,
     }
 )
-
+sequelize
 
 export default sequelize
