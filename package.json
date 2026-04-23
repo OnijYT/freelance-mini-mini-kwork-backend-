@@ -7,7 +7,7 @@
 	"scripts": {
 		"build": "tsc",
 		"start": "node dist/server.js",
-		"dev": "nodemon --watch . --ext ts --exec \"node --loader ts-node/esm server.ts\"",
+		"dev": "nodemon --exec tsx server.ts",
 		"seed": "node --loader ts-node/esm seeds.ts"
 	},
 	"keywords": [],
@@ -31,6 +31,7 @@
 		"@types/node": "^25.5.0",
 		"nodemon": "^3.1.14",
 		"ts-node": "^10.9.2",
+		"tsx": "^4.21.0",
 		"typescript": "^5.9.3"
 	}
 }

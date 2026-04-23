@@ -26,7 +26,7 @@ export const authMiddleware = (req: AuthRequest, res: Response, next: NextFuncti
         next()
     } catch(err){
         console.error(err)
-        res
+        return res
         .status(401)
         .json({message: 'Не правльный токен или прострочена'})
     }

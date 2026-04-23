@@ -2,6 +2,11 @@ import dotnev from 'dotenv'
 import sequelize from './db.js'
 import express from 'express'
 import cors from 'cors'
+import JobRoutes from './routes/JobRoutes.js'
+import AuthRoute from './routes/AuthRoute.js'
+import { Job } from './models/Jobs.js'
+import { User } from './models/User.js'
+
 
 dotnev.config()
 
@@ -11,7 +16,14 @@ app.use(express.json())
 
 // app
 
+app.use('/api/jobs', JobRoutes)
+app.use('/api/auth', AuthRoute)
 
+
+// связи
+
+User.hasMany(Job, { foreignKey: 'clientId' });
+Job.belongsTo(User, { foreignKey: 'clientId' });
 
 // start
 const start = async (): Promise<void> => {

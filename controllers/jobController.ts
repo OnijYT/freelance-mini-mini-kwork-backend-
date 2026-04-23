@@ -1,6 +1,8 @@
-import { AuthRequest } from "../middleware/authMiddleware";
-import { Response } from "express";
-import { Job } from '../models/Jobs'
+import { AuthRequest } from "../middleware/authMiddleware.js";
+import { Response, Request } from "express";
+import { Job } from '../models/Jobs.js'
+import { User } from '../models/User.js'
+import { stat } from "node:fs";
 
 export const createJob = async (req: AuthRequest, res: Response) => {
     try {
@@ -21,7 +23,7 @@ export const createJob = async (req: AuthRequest, res: Response) => {
             status: 'open'
          })
 
-        res
+        return res
         .status(201)
         .json({
             message: 'Заказ успешно создан',
@@ -30,8 +32,52 @@ export const createJob = async (req: AuthRequest, res: Response) => {
 
     } catch(err) {
         console.error(err)
-        res
+        return res
         .status(500)
         .json({ message: 'Ошибка при создании заказа' })
+    }
+}
+
+export const getall = async (_req: Request, res: Response) => {
+    try {
+        const daniye = await Job.findAll({
+            include: [{
+                model: User, 
+                attributes: ['fullname', 'email'] 
+            }],
+            order: [['createdAt', 'DESC']]
+        })
+
+        return res.json(daniye)
+    } catch (err) {
+        console.error(err)
+        return res
+        .status(500)
+        .json({ message: 'ошибка при получение данных' })
+    }
+}
+
+export const getone = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params
+        const daniye = await Job.findByPk(id, {
+            include: [{
+                model: User,
+                attributes: ['fullname', 'email']
+            }],
+        })
+
+        if(!daniye) {
+            return res
+            .status(404)
+            .json({ message: 'Заказ не найден' })
+        }
+
+        return res.json(daniye)
+    } catch (err) {
+        console.error(err)
+        return res
+        .status(500)
+        .json({message: 'Ошибка при получении заказа'})
     }
 }

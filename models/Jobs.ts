@@ -13,15 +13,15 @@ interface JobAttributes {
 interface JobCreationAttributes extends Optional<JobAttributes, 'id'> {}
 
 export class Job extends Model<JobAttributes, JobCreationAttributes> implements JobAttributes {
-    public id!: number;
-    public title!: string;
-    public description!: string;
-    public price!: number;
-    public status!: 'open' | 'in_progress' | 'completed';
-    public clientId!: number;
-
-    public readonly createdAt!: Date
-    public readonly updatedAt!: Date
+    declare id: number;
+    declare title: string;
+    declare description: string;
+    declare price: number;
+    declare status: 'open' | 'in_progress' | 'completed';
+    declare clientId: number;
+    
+    declare readonly createdAt: Date
+    declare readonly updatedAt: Date
 }
 
 Job.init({

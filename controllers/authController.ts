@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import { User } from '../models/User'
+import { User } from '../models/User.js'
 
 
 export const register = async (req: Request, res: Response) => {
@@ -51,13 +51,13 @@ export const register = async (req: Request, res: Response) => {
 
     } catch (err) {
         console.error(err)
-        res.status(500).json({ message: 'Ошибка сервера' })
+        return res.status(500).json({ message: 'Ошибка сервера' })
     }
 }
 
 export const login = async (req: Request, res: Response) => {
     try {
-        const {email, password,} = req.body
+        const {email, password} = req.body
 
         const user = await User.findOne({where: {email}})
         if(!user) {
@@ -92,7 +92,7 @@ export const login = async (req: Request, res: Response) => {
             })
     } catch (err) {
         console.error(err)
-        res
+        return res
         .status(500)
         .json({message: 'Ошибка сервера'})
     }
