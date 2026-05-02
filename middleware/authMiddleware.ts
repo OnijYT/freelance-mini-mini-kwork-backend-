@@ -20,7 +20,7 @@ export const authMiddleware = (req: AuthRequest, res: Response, next: NextFuncti
     const token = authchek.split(' ')[1]
 
     try {
-        const decoded = jwt.verify(token, 'superpuper123') as {id: number, role: string}
+        const decoded = jwt.verify(token, 'secret_key') as {id: number, role: string}
         req.user = decoded
 
         next()

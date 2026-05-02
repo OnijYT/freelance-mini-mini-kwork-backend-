@@ -30,7 +30,7 @@ const start = async (): Promise<void> => {
     try {
         await sequelize.authenticate()
         await sequelize.sync({ alter: true })
-        app.listen(5000, () => console.log('✅ server ok'))
+        app.listen(5000, () => console.log('server ok'))
     } catch (err) {
         console.error(err)
     }
