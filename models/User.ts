@@ -1,7 +1,7 @@
 import sequelize from "../db.js";
 import { DataTypes, Model, Optional } from "sequelize";
 
-interface Useratributs {
+export interface Useratributs {
     id: number
     email: string
     password: string
