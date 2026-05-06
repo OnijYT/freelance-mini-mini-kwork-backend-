@@ -4,6 +4,7 @@ import express from 'express'
 import cors from 'cors'
 import JobRoutes from './routes/JobRoutes.js'
 import AuthRoute from './routes/AuthRoute.js'
+import Checkrout from './routes/Checkrout.js'
 import { Job } from './models/Jobs.js'
 import { User } from './models/User.js'
 
@@ -18,6 +19,7 @@ app.use(express.json())
 
 app.use('/api/jobs', JobRoutes)
 app.use('/api/auth', AuthRoute)
+app.use('/me', Checkrout)
 
 
 // связи
