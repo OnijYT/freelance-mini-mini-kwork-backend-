@@ -1,4 +1,5 @@
 import { Response, Request, NextFunction } from 'express'
+import jwt from 'jsonwebtoken'
 
 
 export default (req: Request, res: Response, next: NextFunction) => {
@@ -10,6 +11,7 @@ export default (req: Request, res: Response, next: NextFunction) => {
         .json({message: 'Не авторизован'})
     }
 
+    const logd = jwt.verify()
 
 
     
