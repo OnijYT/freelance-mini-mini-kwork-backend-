@@ -1,37 +1,12 @@
 import { Response, Request, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 import { User, Useratributs } from '../models/User.js'
-
-export interface Costumeid extends Request {
-    userId?: number
-} 
+import { AuthRequest } from './authMiddleware.js'
 
 
-export default (req: Costumeid, res: Response, next: NextFunction) => {
+export const getMe = async (req: AuthRequest, res: Response ) => {
     try {
-        const auth = (req.headers.authorization || '').replace(/Bearer\s?/, '')
-
-        if (!auth) {
-        return res
-        .status(403)
-        .json({message: 'Не авторизован'})
-        }
-        const decoded = jwt.verify(auth, 'secret_key') as {id: number}
-        req.userId = decoded.id
-        next()
-
-    } catch (err){
-        console.error(err);
-        res
-        .status(403)
-        .json({message: 'Ошибка что то не так'})
-    }
-        
-}
-
-export const getMe = async (req: Costumeid, res: Response ) => {
-    try {
-        const user = await User.findByPk(req.userId)
+        const user = await User.findByPk(req.user?.id)
         if(!user) {
             res
             .status(404)

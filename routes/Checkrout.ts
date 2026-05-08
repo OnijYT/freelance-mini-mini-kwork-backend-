@@ -1,9 +1,10 @@
 import { Router } from "express";
-import checkAuth, { getMe } from "../middleware/checkAuth.js";
+import { getMe } from "../middleware/checkAuth.js";
+import { authMiddleware } from "../middleware/authMiddleware.js";
 
 const router = Router()
 
 
-router.get('/auth', checkAuth, getMe)
+router.get('/me', authMiddleware, getMe)
 
 export default router

@@ -19,7 +19,7 @@ app.use(express.json())
 
 app.use('/api/jobs', JobRoutes)
 app.use('/api/auth', AuthRoute)
-app.use('/me', Checkrout)
+app.use('/api/checkauth', Checkrout)
 
 
 // связи

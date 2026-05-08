@@ -14,8 +14,8 @@ interface UserCreateAtributs extends Optional<Useratributs, 'id'> {}
 export class User extends Model<Useratributs, UserCreateAtributs> implements Useratributs {
     declare id: number
     declare email: string
-    declare password: string;
-    declare fullname: string;
+    declare password: string
+    declare fullname: string
     declare role: 'client' | 'freelancer'
     declare readonly createdAt: Date
     declare readonly updatedAt: Date

@@ -47,7 +47,7 @@ export const getall = async (_req: Request, res: Response) => {
             }],
             order: [['createdAt', 'DESC']]
         })
-
+        
         return res.json(daniye)
     } catch (err) {
         console.error(err)
