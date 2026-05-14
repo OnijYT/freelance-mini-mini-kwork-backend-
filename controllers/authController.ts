@@ -14,6 +14,15 @@ export const register = async (req: Request, res: Response) => {
             .json({ message: 'все поля должны быть заполнены'})
         }
 
+        const fulname = await User.findOne({where: {fullname}})
+        if(fulname) {
+            if (fulname) {
+            return res
+            .status(400)
+            .json({ message: "Пользователь с таким ником у сушествует уже существует" })
+        }
+        }
+
         const emailka = await User.findOne({ where: { email } })
         if (emailka) {
             return res

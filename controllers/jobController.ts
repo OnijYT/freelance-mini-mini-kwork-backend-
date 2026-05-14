@@ -81,3 +81,17 @@ export const getone = async (req: Request, res: Response) => {
         .json({message: 'Ошибка при получении заказа'})
     }
 }
+
+export const getmyjobs = async (req: AuthRequest, res: Response) => {
+    try {
+        const clientId = req.user?.id
+        const job = await Job.findAll({where: { clientId }})
+
+        return res.json(job)
+    } catch (err) {
+        console.error(err);
+        return res
+        .status(500)
+        .json({message: 'Ошибка при получении'})
+    }
+}
