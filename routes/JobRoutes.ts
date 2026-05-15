@@ -8,8 +8,8 @@ const router = Router()
 
 router.get('/', getall)
 router.get('/myjobs', authMiddleware, getmyjobs)
-router.get('/:id', getone)
-
 router.post('/create', authMiddleware, roleMiddleware('client'), createJob)
+
+router.get('/:id', getone)
 
 export default router

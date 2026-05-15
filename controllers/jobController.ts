@@ -95,3 +95,20 @@ export const getmyjobs = async (req: AuthRequest, res: Response) => {
         .json({message: 'Ошибка при получении'})
     }
 }
+
+export const deletemyjob = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params
+
+        const Remove = await Job.destroy({where: {id}})
+
+        res
+        .status(200)
+        .json({message: 'Успешно удалено', Remove})
+    } catch(err) {
+        console.error(err);
+        return res
+            .status(500)
+            .json({ message: 'Ошибк апри удалении' })
+    }
+}
