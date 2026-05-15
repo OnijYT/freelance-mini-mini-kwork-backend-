@@ -96,19 +96,54 @@ export const getmyjobs = async (req: AuthRequest, res: Response) => {
     }
 }
 
-export const deletemyjob = async (req: Request, res: Response) => {
+export const deletemyjob = async (req: AuthRequest, res: Response) => {
     try {
         const { id } = req.params
+        const clientId = req.user?.id
 
-        const Remove = await Job.destroy({where: {id}})
+        const Remove = await Job.destroy({where: {id, clientId}})
 
-        res
+        if(Remove === 0) {
+            return res
+                .status(404)
+                .json({ message: 'Нечего не найдено' })
+        }
+
+        return res
         .status(200)
-        .json({message: 'Успешно удалено', Remove})
+        .json({message: 'Успешно удалено'})
     } catch(err) {
         console.error(err);
         return res
             .status(500)
             .json({ message: 'Ошибк апри удалении' })
+    }
+}
+
+export const updatemyjob = async (req: AuthRequest, res: Response) => {
+    try {
+        const {title, description, price} = req.body
+        const clientId = req.user?.id
+        const { id } = req.params
+
+        const [Updatejob] = await Job.update(
+            {title, description, price},
+            {where: {id, clientId}}
+        )
+
+        if(Updatejob === 0) {
+            return res
+                .status(404)
+                .json({ message: 'Не чего не найдено либо нет прав' })
+        }
+
+        return res
+            .status(200)    
+            .json({message: 'Успешно изменено'})
+    } catch (err) {
+        console.error(err)
+        return res
+            .status(500)
+            .json({ message: 'что то пошло не так' })
     }
 }
