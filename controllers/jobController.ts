@@ -116,7 +116,7 @@ export const deletemyjob = async (req: AuthRequest, res: Response) => {
         console.error(err);
         return res
             .status(500)
-            .json({ message: 'Ошибк апри удалении' })
+            .json({ message: 'Ошибк при удалении' })
     }
 }
 

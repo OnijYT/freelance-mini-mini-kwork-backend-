@@ -10,8 +10,8 @@ router.get('/', getall)
 router.get('/myjobs', authMiddleware, getmyjobs)
 router.post('/create', authMiddleware, roleMiddleware('client'), createJob)
 
-router.post('/:id', authMiddleware, roleMiddleware('client'), updatemyjob)
-router.post('/:id', authMiddleware, roleMiddleware('client'), deletemyjob)
+router.patch('/:id', authMiddleware, roleMiddleware('client'), updatemyjob)
+router.delete('/:id', authMiddleware, roleMiddleware('client'), deletemyjob)
 router.get('/:id', getone)
 
 export default router
